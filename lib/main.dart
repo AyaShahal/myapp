@@ -3,6 +3,7 @@ import 'package:intro_slider/intro_slider.dart';
 import './search.dart';
 import './bottomnavigation.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -33,23 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
-  void _incrementCounter() {
-    setState(() {});
-  }
-
-  final List<Widget> _pages = [
-    MyApp(),
-    Search(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+ 
   Widget slider(String imageUrl, String text, String phrase, by) {
     return Container(
       width: 200,
@@ -171,48 +157,68 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
                     children: [
-                      const Text(
-                        'Breaking News',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Breaking News',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Add your onPressed logic here
+                            },
+                            child: const Text('More'),
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        onPressed: () {
-                          // Add your onPressed logic here
-                        },
-                        child: const Text('More'),
+                      Container(
+                        height: 300, 
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          children: [
+                            slider(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSH_AepNzJhcfnHoHJfV4Z-G8gHpz6_cjWw&usqp=CAU',
+                              'Lorem ipsum dolor alt amet consectetur ellt.',
+                              '19 hours ago',
+                              'by Lorem Ipsum',
+                            ),
+                            const SizedBox(width: 10),
+                            slider(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTv_n_rZFRkaOtx36XLRxay8LnZi5ewo9Nfg&usqp=CAU',
+                              'Lorem ipsum dolor alt amet consectetur ellt',
+                              '20 hours ago',
+                              'by Lorem Ipsum',
+                            ),
+
+                            const SizedBox(width: 10),
+                             slider(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTv_n_rZFRkaOtx36XLRxay8LnZi5ewo9Nfg&usqp=CAU',
+                              'Lorem ipsum dolor alt amet consectetur ellt',
+                              '20 hours ago',
+                              'by Lorem Ipsum',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      slider(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSH_AepNzJhcfnHoHJfV4Z-G8gHpz6_cjWw&usqp=CAU',
-                          'Lorem ipsum dolor alt amet consectetur ellt.',
-                          '19 hours ago',
-                          'by Lorem Ipsum'),
-                      const SizedBox(width: 10),
-                      slider(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTv_n_rZFRkaOtx36XLRxay8LnZi5ewo9Nfg&usqp=CAU',
-                          'Lorem ipsum dolor alt amet consectetur ellt',
-                          '20 hours ago',
-                          'by Lorem Ipsum'),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  MyWidget(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

@@ -44,14 +44,14 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      selectedIconTheme: IconThemeData(color: Colors.black87),
+      selectedIconTheme: const IconThemeData(color: Colors.black87),
       unselectedIconTheme: IconThemeData(color: Colors.grey.shade500),
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       elevation: 0,
-      items: [
-        BottomNavigationBarItem(
+            items: const [
+  BottomNavigationBarItem(
           icon: Icon(Icons.home, color: Colors.black87),
           label: 'Home',
         ),

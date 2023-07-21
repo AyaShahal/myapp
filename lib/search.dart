@@ -21,6 +21,12 @@ void _navigateToCategoryPage(BuildContext context, Category category) {
 
 class _SearchState extends State<Search> {
   Category? selectedCategory;
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory =
+        categories.firstWhere((category) => category.name == 'Health');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +100,6 @@ class _SearchState extends State<Search> {
                         ),
                         decoration: BoxDecoration(
                           border: Border(
-                            // Add a colored bottom border for the active category
                             bottom: BorderSide(
                               color: isSelected
                                   ? Colors.black
@@ -103,8 +108,6 @@ class _SearchState extends State<Search> {
                             ),
                           ),
                         ),
-                        // margin: const EdgeInsets.all(4),
-
                         child: Text(
                           category.name,
                           style: const TextStyle(
@@ -115,62 +118,79 @@ class _SearchState extends State<Search> {
                   },
                 ),
               ),
-             if (selectedCategory != null)
-  Expanded(
-    child: ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: selectedCategory!.items.length,
-      itemBuilder: (context, index) {
-        final itemData = selectedCategory!.items[index].split(',');
-        final itemText = itemData[0];
-        final imageUrl = itemData[1];
-        final time = itemData[2];
-          final views = itemData[3];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(22.0),
-                child: Image.network(
-                  imageUrl,
-                  width: 90,
-                  // height: 100,
+              if (selectedCategory != null)
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: selectedCategory!.items.length,
+                    itemBuilder: (context, index) {
+                      final itemData =
+                          selectedCategory!.items[index].split(',');
+                      final itemText = itemData[0];
+                      final imageUrl = itemData[1];
+                      final time = itemData[2];
+                      final views = itemData[3];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(22.0),
+                              child: Image.network(
+                                imageUrl,
+                                width: 90,
+                                // height: 100,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    itemText,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.timelapse,
+                                        size: 15,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        time,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Icon(
+                                        Icons.visibility,
+                                        size: 15,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        views,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      itemText,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-
-                    Row(
-                      children: [
-                        Icon(Icons.timelapse,size: 15,),
-                          const SizedBox(width: 5,),
-                        Text(time,style: TextStyle(fontSize: 12),),
-                       const SizedBox(width: 10,),
-                        Icon(Icons.visibility,size: 15,),
-                          const SizedBox(width: 5,),
-                        Text(views,style: TextStyle(fontSize: 12),),
-                      
-                      ],
-
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    ),
-  ),
-
             ],
           ),
         ),
